@@ -7,10 +7,10 @@ staload "libats/SATS/funarray.sats"
 staload "libats/SATS/deqarray.sats"
 staload _ = "libats/DATS/deqarray.dats"
 
-absvtype queue_vtype(a : vt@ype+, int) = ptr
+absvtype queue_vtype(a: vt@ype+, int) = ptr
 
-vtypedef queue(a : vt0p, id : int) = queue_vtype(a, id)
-vtypedef queue(a : vt0p) = [id:int] queue(a, id)
+vtypedef queue(a: vt0p, id: int) = queue_vtype(a, id)
+vtypedef queue(a: vt0p) = [id:int] queue(a, id)
 
 absprop ISNIL (id : int, b : bool)
 
@@ -43,9 +43,9 @@ assume queue_vtype(a : vt0p, id : int) = deqarray(a)
 assume ISNIL(id : int, b : bool) = unit_p
 assume ISFULL(id : int, b : bool) = unit_p
 
-absvtype channel_vtype(a : vt@ype+) = ptr
+absvtype channel_vtype(a: vt@ype+) = ptr
 
-vtypedef channel(a : vt0p) = channel_vtype(a)
+vtypedef channel(a: vt0p) = channel_vtype(a)
 
 extern
 fun {a:vt0p} channel_insert  (!channel(a), a) : void
@@ -96,7 +96,7 @@ implement {a} queue_remove (prf | xs) =
   let
     prval () = __assert(prf) where
     { extern
-      praxi __assert {id:int} (p : ISNIL(id, false)) : [ false ] void }
+      praxi __assert {id:int} (p : ISNIL(id, false)) : [false] void }
   in
     deqarray_takeout_atbeg<a>(xs)
   end
@@ -105,7 +105,7 @@ implement {a} queue_insert (prf | xs, x) =
   {
     prval () = __assert(prf) where
     { extern
-      praxi __assert {id:int} (p : ISFULL(id, false)) : [ false ] void }
+      praxi __assert {id:int} (p : ISFULL(id, false)) : [false] void }
     val () = deqarray_insert_atend<a>(xs, x)
   }
 
@@ -129,7 +129,7 @@ implement {a} channel_ref (chan) =
 
 implement {a} channel_unref (chan) =
   let
-    val @CHANNEL{ l0, l1, l2, l3 }(ch) = chan
+    val @CHANNEL{l0,l1,l2,l3}(ch) = chan
     val spin = unsafe_spin_vt2t(ch.spin)
     val (prf | ()) = spin_lock(spin)
     val () = spin_unlock(prf | spin)
@@ -158,7 +158,7 @@ implement {a} channel_unref (chan) =
 
 implement channel_refcount {a} (chan) =
   let
-    val @CHANNEL{ l0, l1, l2, l3 }(ch) = chan
+    val @CHANNEL{l0,l1,l2,l3}(ch) = chan
     val refcount = ch.refcount
   in
     (fold@(chan) ; refcount)
@@ -209,7 +209,7 @@ implement {a} channel_make (cap) =
 
 implement {a} channel_insert (chan, x) =
   let
-    val+ CHANNEL{ l0, l1, l2, l3 }(ch) = chan
+    val+ CHANNEL{l0,l1,l2,l3}(ch) = chan
     val mutex = unsafe_mutex_vt2t(ch.mutex)
     val (prf | ()) = mutex_lock(mutex)
     val xs = $UN.castvwtp0{queue(a)}((prf | ch.queue))
@@ -220,7 +220,7 @@ implement {a} channel_insert (chan, x) =
 
 implement {a} channel_remove (chan) =
   x where
-  { val+ CHANNEL{ l0, l1, l2, l3 }(ch) = chan
+  { val+ CHANNEL{l0,l1,l2,l3}(ch) = chan
     val mutex = unsafe_mutex_vt2t(ch.mutex)
     val (prf | ()) = mutex_lock(mutex)
     val xs = $UN.castvwtp0{queue(a)}((prf | ch.queue))
@@ -230,7 +230,7 @@ implement {a} channel_remove (chan) =
 
 implement {a} channel_remove_helper (chan, xs) =
   let
-    val+ CHANNEL{ l0, l1, l2, l3 }(ch) = chan
+    val+ CHANNEL{l0,l1,l2,l3}(ch) = chan
     val (prf | is_nil) = queue_is_nil(xs)
   in
     if is_nil then
@@ -258,7 +258,7 @@ implement {a} channel_remove_helper (chan, xs) =
 
 implement {a} channel_insert_helper (chan, xs, x) =
   let
-    val+ CHANNEL{ l0, l1, l2, l3 }(ch) = chan
+    val+ CHANNEL{l0,l1,l2,l3}(ch) = chan
     val (prf | is_full) = queue_is_full(xs)
   in
     if is_full then
