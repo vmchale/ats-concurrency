@@ -1,7 +1,9 @@
 # concurrency
 
 This is basically taken from the example in the book, but configured to work
-with [atspkg](http://hackage.haskell.org/package/ats-pkg).
+with [atspkg](http://hackage.haskell.org/package/ats-pkg). You can see
+[here](http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/x4387.html)
+for details on how the ATS works.
 
 ## Installation
 
