@@ -10,11 +10,11 @@ for details on how the ATS works.
 Add the appropriate Dhall expression to your dependencies:
 
 ```dhall
-dependencies = [ https://raw.githubusercontent.com/vmchale/atspkg/master/pkgs/atscntrb-concurrency-0.1.0.dhall ]
+dependencies = [ "concurrency" ]
 ```
 
 Then include the appropriate file with
 
 ```ats
-#include ".atspkg/contrib/ats-concurrency-0.1.0/channel.dats"
+#include ".atspkg/contrib/ats-concurrency-0.1.2/channel.dats"
 ```
