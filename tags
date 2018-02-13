@@ -4,5 +4,11 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-channel_	channel.sats	/^datavtype channel_ =$/;"	t
-channel_refcount	channel.sats	/^fun channel_refcount {a:vt0p} (ch : !channel(a)) : intGt(0)$/;"	f
+_057_home_057_vanessa_057_programming_057_ats_057_concurrency_057_channel_056_sats__ISFULL	channel_sats.c	/^ATSassume(_057_home_057_vanessa_057_programming_057_ats_057_concurrency_057_channel_056_sats__ISFULL) ;$/;"	v
+_057_home_057_vanessa_057_programming_057_ats_057_concurrency_057_channel_056_sats__ISNIL	channel_sats.c	/^ATSassume(_057_home_057_vanessa_057_programming_057_ats_057_concurrency_057_channel_056_sats__ISNIL) ;$/;"	v
+_057_home_057_vanessa_057_programming_057_ats_057_concurrency_057_channel_056_sats__channel_vtype	channel_sats.c	/^ATSassume(_057_home_057_vanessa_057_programming_057_ats_057_concurrency_057_channel_056_sats__channel_vtype) ;$/;"	v
+_057_home_057_vanessa_057_programming_057_ats_057_concurrency_057_channel_056_sats__dynload	channel_sats.c	/^_057_home_057_vanessa_057_programming_057_ats_057_concurrency_057_channel_056_sats__dynload()$/;"	f
+_057_home_057_vanessa_057_programming_057_ats_057_concurrency_057_channel_056_sats__dynloadflag	channel_sats.c	/^ATSdynloadflag_minit(_057_home_057_vanessa_057_programming_057_ats_057_concurrency_057_channel_056_sats__dynloadflag) ;$/;"	v
+_057_home_057_vanessa_057_programming_057_ats_057_concurrency_057_channel_056_sats__queue_vtype	channel_sats.c	/^ATSassume(_057_home_057_vanessa_057_programming_057_ats_057_concurrency_057_channel_056_sats__queue_vtype) ;$/;"	v
+channel_	channel.dats	/^datavtype channel_ =$/;"	t
+channel_refcount	channel.dats	/^fun channel_refcount {a:vt0p} (ch : !channel(a)) : intGt(0)$/;"	f
