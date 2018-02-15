@@ -1,2 +1,4 @@
+tags
+.atpskg
 *.c
 target/
