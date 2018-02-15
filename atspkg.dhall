@@ -11,5 +11,6 @@ in pkg //
       , libs = [ "pthread" ]
       }
     ]
+  , compiler = [0,3,10]
   , dependencies = [ "nproc-ats" ]
   }
