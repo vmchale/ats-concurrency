@@ -16,5 +16,5 @@ dependencies = [ "concurrency" ]
 Then include the appropriate file with
 
 ```ats
-#include ".atspkg/contrib/ats-concurrency-0.1.2/channel.dats"
+#include "$PATSHOMELOCS/ats-concurrency-0.3.1/mylibies.dats"
 ```
