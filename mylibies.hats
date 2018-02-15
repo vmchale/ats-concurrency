@@ -1,3 +1,3 @@
-staload "channel.sats"
+staload "./channel.sats"
 
 #include "./channel.dats"
