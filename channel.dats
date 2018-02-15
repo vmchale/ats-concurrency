@@ -1,7 +1,7 @@
 // This is mostly taken from the example in the book.
 #include "share/atspre_staload_libats_ML.hats"
 #include "libats/DATS/athread_posix.dats"
-#include "./nproc.dats"
+#include ".atspkg/contrib/nproc-ats-0.1.0/mylibies.hats"
 
 staload "libats/SATS/deqarray.sats"
 staload "./channel.sats"

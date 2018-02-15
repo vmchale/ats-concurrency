@@ -7,7 +7,7 @@ for details on how the ATS works.
 
 ## Installation
 
-Add the appropriate Dhall expression to your dependencies:
+Add the appropriate library to your dependencies:
 
 ```dhall
 dependencies = [ "concurrency" ]
