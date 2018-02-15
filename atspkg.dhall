@@ -3,11 +3,11 @@ in
 let dbin = https://raw.githubusercontent.com/vmchale/atspkg/master/pkgs/default-bin.dhall
 
 in pkg //
-  { bin =
+  { test =
     [
       dbin //
-      { src = "concurrency.dats"
-      , target = "target/libchannel.a"
+      { src = "test/test.dats"
+      , target = "target/test"
       , libs = [ "pthread" ]
       }
     ]
