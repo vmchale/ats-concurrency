@@ -10,11 +10,14 @@ for details on how the ATS works.
 Add the appropriate library to your dependencies:
 
 ```dhall
-dependencies = [ "concurrency" ]
+let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/atspkg-prelude.dhall
+in
+
+dependencies = prelude.mapPlainDeps [ "concurrency" ]
 ```
 
 Then include the appropriate file with
 
 ```ats
-#include "$PATSHOMELOCS/ats-concurrency-0.3.1/mylibies.dats"
+#include "$PATSHOMELOCS/ats-concurrency-0.3.7/mylibies.dats"
 ```

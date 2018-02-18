@@ -15,8 +15,6 @@ in prelude.default //
       { name = "concurrency"
       , src = [] : List Text
       , includes = [] : List Text
-      -- , src = [ "mylibies_link.hats" ]
-      -- , includes = [ "mylibies_link.hats" ]
       , libTarget = ".atspkg/lib/libconcurrency.a"
       , libs = [ "pthread" ]
       }
