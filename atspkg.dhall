@@ -1,13 +1,9 @@
-let pkg = https://raw.githubusercontent.com/vmchale/atspkg/master/pkgs/default.dhall
-in
-let dbin = https://raw.githubusercontent.com/vmchale/atspkg/master/pkgs/default-bin.dhall
-in
-let dlib = https://raw.githubusercontent.com/vmchale/atspkg/master/pkgs/default-lib.dhall
+let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/atspkg-prelude.dhall
 
-in pkg //
+in prelude.default //
   { test =
     [
-      dbin //
+      prelude.bin //
       { src = "test/test.dats"
       , target = "target/test"
       , libs = [ "pthread" ]
@@ -15,7 +11,7 @@ in pkg //
     ]
   , libraries =
     [
-      dlib //
+      prelude.lib //
       { name = "concurrency"
       , src = [ "mylibies_link.hats" ]
       , includes = [ "mylibies_link.hats" ]
@@ -24,5 +20,5 @@ in pkg //
       }
     ]
   , compiler = [0,3,10]
-  , dependencies = [ "nproc-ats" ]
+  , dependencies = prelude.mapPlainDeps [ "nproc-ats" ]
   }
