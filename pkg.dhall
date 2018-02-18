@@ -1,4 +1,5 @@
-let makePkg = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/make-pkg.dhall
+let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/atspkg-prelude.dhall
 
 in λ(x : List Integer) → 
-  makePkg { x = x, name = "ats-concurrency", githubUsername = "vmchale" } // { libName = "concurrency", libDeps = [ "nproc-ats" ] }
+  prelude.makePkg { x = x, name = "ats-concurrency", githubUsername = "vmchale" } 
+    // { libName = "concurrency", libDeps = prelude.mapPlainDeps [ "nproc-ats" ] }
