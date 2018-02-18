@@ -5,6 +5,8 @@ with [atspkg](http://hackage.haskell.org/package/ats-pkg). You can see
 [here](http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/x4387.html)
 for details on how the ATS works.
 
+At the moment, this library just provides support for channels.
+
 ## Installation
 
 Add the appropriate library to your dependencies:
