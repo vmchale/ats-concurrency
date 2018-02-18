@@ -13,8 +13,10 @@ in prelude.default //
     [
       prelude.lib //
       { name = "concurrency"
-      , src = [ "mylibies_link.hats" ]
-      , includes = [ "mylibies_link.hats" ]
+      , src = [] : List Text
+      , includes = [] : List Text
+      -- , src = [ "mylibies_link.hats" ]
+      -- , includes = [ "mylibies_link.hats" ]
       , libTarget = ".atspkg/lib/libconcurrency.a"
       , libs = [ "pthread" ]
       }

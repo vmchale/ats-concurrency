@@ -16,12 +16,9 @@ absprop ISFULL (id : int, b : bool)
 
 fun {a:vt0p} queue_is_full {id:int} (!queue(a, id)) : [b:bool] (ISFULL(id, b) | bool(b))
 
-fun {a:vt0p} queue_insert {id:int} ( ISFULL(id,false) | xs : !queue(a, id) >> queue(a, id2)
-                                   , x : a
-                                   ) : #[id2:int] void
+fun {a:vt0p} queue_insert {id:int} (ISFULL(id,false) | xs : !queue(a, id) >> queue(a, id2), x : a) : #[id2:int] void
 
-fun {a:vt0p} queue_remove {id:int} (ISNIL(id,false) | xs : !queue(a, id) >> queue(a, id2)) :
-  #[id2:int] a
+fun {a:vt0p} queue_remove {id:int} (ISNIL(id,false) | xs : !queue(a, id) >> queue(a, id2)) : #[id2:int] a
 
 fun {a:vt0p} queue_make (cap : intGt(0)) : queue(a)
 
