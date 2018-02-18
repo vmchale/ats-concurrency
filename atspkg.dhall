@@ -13,12 +13,12 @@ in prelude.default //
     [
       prelude.lib //
       { name = "concurrency"
-      , src = [] : List Text
-      , includes = [] : List Text
+      , src = [ "mylibies_link.hats" ]
+      , includes = [ "mylibies_link.hats", ".atspkg/contrib/channel_link.hats" ]
+      , links = [ { _1 = "channel.sats", _2 = ".atspkg/contrib/channel_link.hats" } ]
       , libTarget = ".atspkg/lib/libconcurrency.a"
       , libs = [ "pthread" ]
       }
     ]
-  , compiler = [0,3,10]
   , dependencies = prelude.mapPlainDeps [ "nproc-ats" ]
   }
