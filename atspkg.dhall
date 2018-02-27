@@ -18,6 +18,7 @@ in prelude.default //
       , links = [ { _1 = "channel.sats", _2 = ".atspkg/contrib/channel_link.hats" } ]
       , libTarget = ".atspkg/lib/libconcurrency.a"
       , libs = [ "pthread" ]
+      , static = True
       }
     ]
   , dependencies = prelude.mapPlainDeps [ "nproc-ats" ]
