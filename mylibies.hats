@@ -1,2 +1,3 @@
 staload "./channel.sats"
-staload _ = "./channel.dats"
+
+#include "./channel.dats"
