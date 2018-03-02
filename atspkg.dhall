@@ -1,4 +1,11 @@
 let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/atspkg-prelude.dhall
+in
+let lib =
+  prelude.staticLib //
+  { name = "concurrency"
+  , src = [ "mylibies_link.hats" ]
+  , libs = [ "pthread" ]
+  }
 
 in prelude.default //
   { test =
@@ -11,15 +18,12 @@ in prelude.default //
     ]
   , libraries =
     [
-      prelude.lib //
-      { name = "concurrency"
-      , src = [ "mylibies_link.hats" ]
+      lib //
+      { libTarget = "target/libconccurency.a"
       , includes = [ "mylibies_link.hats", ".atspkg/contrib/channel_link.hats" ]
       , links = [ { _1 = "channel.sats", _2 = ".atspkg/contrib/channel_link.hats" } ]
-      , libTarget = ".atspkg/lib/libconcurrency.a"
-      , libs = [ "pthread" ]
-      , static = True
       }
     ]
   , dependencies = prelude.mapPlainDeps [ "nproc-ats" ]
+  , compiler = [0,3,10]
   }

@@ -1,10 +1,12 @@
 // This is mostly taken from the example in the book.
 #include "share/atspre_staload_libats_ML.hats"
-#include "libats/DATS/athread_posix.dats"
 #include "$PATSHOMELOCS/nproc-ats-0.1.5/mylibies.hats"
 
+staload _ = "libats/DATS/athread_posix.dats"
+staload "libats/SATS/athread.sats"
 staload "libats/SATS/deqarray.sats"
 staload "./channel.sats"
+staload UN = "prelude/SATS/unsafe.sats"
 
 assume channel_vtype(a : vt0p) = channel_
 assume queue_vtype(a : vt0p, id : int) = deqarray(a)
