@@ -1,6 +1,5 @@
 // This is mostly taken from the example in the book.
 #include "share/atspre_staload_libats_ML.hats"
-#include "$PATSHOMELOCS/nproc-ats-0.1.5/mylibies.hats"
 
 staload _ = "libats/DATS/athread_posix.dats"
 staload "libats/SATS/athread.sats"
