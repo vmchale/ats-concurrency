@@ -3,3 +3,4 @@
 # Features
 - [ ] Parallel directory walk
 - [ ] MS lock-free queue?
+- [ ] Green threads?? Could be fun.
