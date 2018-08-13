@@ -1,16 +1,14 @@
 // This is mostly taken from the example in the book.
-#include "share/atspre_staload_libats_ML.hats"
-
 staload _ = "libats/DATS/athread_posix.dats"
 staload "libats/SATS/athread.sats"
 staload "libats/SATS/deqarray.sats"
 staload "./channel.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
-assume channel_vtype(a : vt0p) = channel_
-assume queue_vtype(a : vt0p, id : int) = deqarray(a)
-assume ISNIL(id : int, b : bool) = unit_p
-assume ISFULL(id : int, b : bool) = unit_p
+absimpl channel_vtype(a: vt0p) = channel_
+absimpl queue_vtype(a: vt0p, id: int) = deqarray(a)
+absimpl ISNIL(id: int, b: bool) = unit_p
+absimpl ISFULL(id: int, b: bool) = unit_p
 
 implement {a} queue_is_nil (xs) =
   (unit_p() | deqarray_is_nil(xs))
@@ -20,26 +18,28 @@ implement {a} queue_is_full (xs) =
 
 implement {a} queue_remove (prf | xs) =
   let
-    prval () = __assert(prf) where
-    { extern
-      praxi __assert {id:int} (p : ISNIL(id, false)) : [false] void }
+    extern
+    praxi not_nil {id:int} (p : ISNIL(id, false)) : [false] void
+    
+    prval () = not_nil(prf)
   in
     deqarray_takeout_atbeg<a>(xs)
   end
 
 implement {a} queue_insert (prf | xs, x) =
-  {
-    prval () = __assert(prf) where
-    { extern
-      praxi __assert {id:int} (p : ISFULL(id, false)) : [false] void }
+  let
+    extern
+    praxi not_full {id:int} (p : ISFULL(id, false)) : [false] void
+    
+    prval () = not_full(prf)
     val () = deqarray_insert_atend<a>(xs, x)
-  }
+  in end
 
 implement {a} queue_make (cap) =
   deqarray_make_cap(i2sz(cap))
 
 implement {a} queue_free (que) =
-  deqarray_free_nil($UN.castvwtp0{deqarray(a, 1, 0)}(que))
+  deqarray_free_nil($UN.castvwtp0(que))
 
 implement {a} channel_ref (chan) =
   let
@@ -86,19 +86,20 @@ implement channel_refcount {a} (chan) =
   let
     val @CHANNEL{l0,l1,l2,l3}(ch) = chan
     val refcount = ch.refcount
+    prval () = fold@(chan)
   in
-    (fold@(chan) ; refcount)
+    refcount
   end
 
 implement {a} channel_make (cap) =
   let
     extern
-    praxi __assert() : [l:agz] void
+    praxi assert_agz() : [l:agz] void
     
-    prval [l0:addr]() = __assert()
-    prval [l1:addr]() = __assert()
-    prval [l2:addr]() = __assert()
-    prval [l3:addr]() = __assert()
+    prval [l0:addr]() = assert_agz()
+    prval [l1:addr]() = assert_agz()
+    prval [l2:addr]() = assert_agz()
+    prval [l3:addr]() = assert_agz()
     val chan = CHANNEL{l0,l1,l2,l3}(_)
     val+ CHANNEL (ch) = chan
     val () = ch.cap := cap
@@ -134,7 +135,7 @@ implement {a} channel_make (cap) =
   end
 
 implement {a} channel_insert (chan, x) =
-  let
+  {
     val+ CHANNEL{l0,l1,l2,l3}(ch) = chan
     val mutex = unsafe_mutex_vt2t(ch.mutex)
     val (prf | ()) = mutex_lock(mutex)
@@ -142,17 +143,20 @@ implement {a} channel_insert (chan, x) =
     val () = channel_insert_helper<a>(chan, xs, x)
     prval prf = $UN.castview0{locked_v(l1)}(xs)
     val () = mutex_unlock(prf | mutex)
-  in end
+  }
 
 implement {a} channel_remove (chan) =
-  x where
-  { val+ CHANNEL{l0,l1,l2,l3}(ch) = chan
+  let
+    val+ CHANNEL{l0,l1,l2,l3}(ch) = chan
     val mutex = unsafe_mutex_vt2t(ch.mutex)
     val (prf | ()) = mutex_lock(mutex)
     val xs = $UN.castvwtp0{queue(a)}((prf | ch.queue))
     val x = channel_remove_helper<a>(chan, xs)
     prval prf = $UN.castview0{locked_v(l1)}(xs)
-    val () = mutex_unlock(prf | mutex) }
+    val () = mutex_unlock(prf | mutex)
+  in
+    x
+  end
 
 implement {a} channel_remove_helper (chan, xs) =
   let

@@ -12,10 +12,13 @@ At the moment, this library just provides support for channels.
 Add the appropriate library to your dependencies:
 
 ```dhall
-let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/atspkg-prelude.dhall
+let prelude = http://hackage.haskell.org/package/ats-pkg/src/dhall/atspkg-prelude.dhall
 in
 
 dependencies = prelude.mapPlainDeps [ "concurrency" ]
+in
+
+...
 ```
 
 Then include the appropriate file with

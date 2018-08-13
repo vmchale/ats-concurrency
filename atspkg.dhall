@@ -1,5 +1,6 @@
-let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
+let prelude = http://hackage.haskell.org/package/ats-pkg/src/dhall/atspkg-prelude.dhall
 in
+
 let lib =
   prelude.staticLib ⫽
   { name = "concurrency"
@@ -24,5 +25,4 @@ in prelude.default ⫽
       , links = [ { _1 = "channel.sats", _2 = ".atspkg/contrib/channel_link.hats" } ]
       }
     ]
-  , dependencies = prelude.mapPlainDeps [ "nproc-ats" ]
   }
