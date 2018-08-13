@@ -158,7 +158,7 @@ implement {a} channel_remove (chan) =
     x
   end
 
-implement {a} channel_remove_helper (chan, xs) =
+fun {a:vt@ype} channel_remove_helper(chan : !channel(a), xs : !queue(a) >> _) : a =
   let
     val+ CHANNEL{l0,l1,l2,l3}(ch) = chan
     val (prf | is_nil) = queue_is_nil(xs)
@@ -186,7 +186,7 @@ implement {a} channel_remove_helper (chan, xs) =
       end
   end
 
-implement {a} channel_insert_helper (chan, xs, x) =
+fun {a:vt@ype} channel_insert_helper(chan : !channel(a), xs : !queue(a) >> _, x : a) : void =
   let
     val+ CHANNEL{l0,l1,l2,l3}(ch) = chan
     val (prf | is_full) = queue_is_full(xs)
