@@ -134,30 +134,6 @@ implement {a} channel_make (cap) =
     (fold@(chan) ; chan)
   end
 
-implement {a} channel_insert (chan, x) =
-  {
-    val+ CHANNEL{l0,l1,l2,l3}(ch) = chan
-    val mutex = unsafe_mutex_vt2t(ch.mutex)
-    val (prf | ()) = mutex_lock(mutex)
-    val xs = $UN.castvwtp0{queue(a)}((prf | ch.queue))
-    val () = channel_insert_helper<a>(chan, xs, x)
-    prval prf = $UN.castview0{locked_v(l1)}(xs)
-    val () = mutex_unlock(prf | mutex)
-  }
-
-implement {a} channel_remove (chan) =
-  let
-    val+ CHANNEL{l0,l1,l2,l3}(ch) = chan
-    val mutex = unsafe_mutex_vt2t(ch.mutex)
-    val (prf | ()) = mutex_lock(mutex)
-    val xs = $UN.castvwtp0{queue(a)}((prf | ch.queue))
-    val x = channel_remove_helper<a>(chan, xs)
-    prval prf = $UN.castview0{locked_v(l1)}(xs)
-    val () = mutex_unlock(prf | mutex)
-  in
-    x
-  end
-
 fun {a:vt@ype} channel_remove_helper(chan : !channel(a), xs : !queue(a) >> _) : a =
   let
     val+ CHANNEL{l0,l1,l2,l3}(ch) = chan
@@ -210,4 +186,28 @@ fun {a:vt@ype} channel_insert_helper(chan : !channel(a), xs : !queue(a) >> _, x 
         val () = if is_nil.1 then
           condvar_broadcast(unsafe_condvar_vt2t(ch.CVisNil))
       in end
+  end
+
+implement {a} channel_insert (chan, x) =
+  {
+    val+ CHANNEL{l0,l1,l2,l3}(ch) = chan
+    val mutex = unsafe_mutex_vt2t(ch.mutex)
+    val (prf | ()) = mutex_lock(mutex)
+    val xs = $UN.castvwtp0{queue(a)}((prf | ch.queue))
+    val () = channel_insert_helper<a>(chan, xs, x)
+    prval prf = $UN.castview0{locked_v(l1)}(xs)
+    val () = mutex_unlock(prf | mutex)
+  }
+
+implement {a} channel_remove (chan) =
+  let
+    val+ CHANNEL{l0,l1,l2,l3}(ch) = chan
+    val mutex = unsafe_mutex_vt2t(ch.mutex)
+    val (prf | ()) = mutex_lock(mutex)
+    val xs = $UN.castvwtp0{queue(a)}((prf | ch.queue))
+    val x = channel_remove_helper<a>(chan, xs)
+    prval prf = $UN.castview0{locked_v(l1)}(xs)
+    val () = mutex_unlock(prf | mutex)
+  in
+    x
   end
